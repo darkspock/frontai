@@ -1,26 +1,47 @@
-# Vision y objetivo
+# Vision and objective
 
-## Problema
+## Problem
 
-- Procesos de gestión manuales (ej. inventarios, tareas, CRM) lentos y propensos a errores.
-- Afecta a equipos operativos: gerentes, analistas; importa eficiencia y escalabilidad.
+IT departments in mid-size companies manage equipment (laptops, monitors, peripherals) and service requests (incidents, new equipment, onboarding) manually — via spreadsheets, email threads, and tribal knowledge. This leads to:
 
-## Propuesta de valor
+- Lost or untracked assets with no audit trail.
+- Slow request resolution with no visibility for employees.
+- No data for decision-making (aging hardware, warranty expirations, budget overruns).
+- Compliance gaps (who has what, who did what, when).
 
-- UX intuitiva con dashboards, breadcrumbs, estados explícitos (loading/error/success).
-- Reduce tiempo en navegación 50%, errores humanos 70% vía forms validados y queries optimizadas.
+## Product
 
-## Objetivo general
+**Desk Support Monkey** — an IT Service Desk & Asset Inventory platform.
 
-- Lanzar MVP frontend para gestión básica en 3 meses, escalable a features avanzadas.
+Employees submit service requests and track their status in real time. IT technicians manage a prioritized request queue and maintain a full inventory of company equipment. Admins get dashboards, alerts, reports, and budget control. The platform also handles procurement, appointment scheduling, shipping logistics, and scheduled maintenance.
 
-## Objetivos medibles
+## Value proposition
 
-- Objetivo 1: CRUD básico implementado
-  - Indicador: 4 pantallas funcionales (list/create/edit/view)
-  - Meta: 100% cobertura tests UI/API
-  - Fecha: Fin mes 1
-- Objetivo 2: Rendimiento optimizado
-  - Indicador: Lighthouse score >90
-  - Meta: CWV passing
-  - Fecha: Fin mes 2
+- **For employees:** Self-service portal — submit requests, track status in real time, see assigned equipment.
+- **For technicians:** Prioritized queue, inventory management, appointment scheduling, maintenance tracking.
+- **For admins:** Dashboards with KPIs, budget enforcement, procurement workflow, alert system (warranties, SLA, aging).
+- **For the platform:** Multi-tenant (each company isolated), role-based access (super admin, admin, technician, employee), AI-assisted request classification.
+
+## Frontend objective
+
+Build a React SPA that consumes the existing backend API (~170 endpoints) and provides the complete user experience for all four roles. The backend is fully implemented — the frontend is the remaining piece.
+
+## Tech stack (backend — already built)
+
+| Layer | Technology |
+|---|---|
+| API | Python 3.13 + FastAPI |
+| Database | PostgreSQL 15 |
+| Queue | Celery + Redis |
+| Storage | MinIO (S3-compatible) |
+| Real-time | WebSockets (FastAPI native) |
+| Auth | Magic link + JWT + Google/Microsoft OAuth |
+
+## Architecture highlights (backend)
+
+- **DDD + Clean Architecture + CQRS** with bounded contexts per module.
+- **Multi-tenancy:** All data scoped by `company_id`, isolation at repository level.
+- **Event sourcing:** Asset history as append-only event log.
+- **State machines:** Requests, purchase orders, shipments, maintenance — all with validated transitions.
+- **Pub/sub:** Domain events trigger notifications, audit log, dashboard updates.
+- **RBAC:** super_admin > admin > technician > employee, enforced at HTTP layer.

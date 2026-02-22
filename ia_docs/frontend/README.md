@@ -11,6 +11,7 @@ Esta carpeta contiene la documentacion tecnica principal del frontend.
 - `08-layout-shell.md`: estructura del app shell (sidebar, header, contenido) y breakpoints responsive.
 - `09-state-patterns.md`: patrones de loading, empty, error y success.
 - `10-accessibility.md`: reglas baseline de accesibilidad (contraste, teclado, ARIA, screen readers).
+- `12-api-catalog.md`: catalogo completo de endpoints de la API (Desk Support Monkey).
 
 ## Regla de uso
 - Tratar estos archivos como fuente de verdad tecnica.

@@ -30,6 +30,16 @@
   - class-variance-authority (cva)
   - @hookform/resolvers (zod)
 
+## Backend API
+- **Platform:** Desk Support Monkey — IT Service Desk & Asset Inventory
+- **Base URL (staging):** `https://staging.desksupportmonkey.com`
+- **API prefix:** `/api/v1/`
+- **Docs:** `https://staging.desksupportmonkey.com/docs` (Swagger UI)
+- **Auth:** Bearer JWT (magic link + password login for admins)
+- **~170 endpoints** across 24 domains (auth, companies, departments, users, assets, requests, dashboard, reports, vendors, purchase orders, shipments, appointments, maintenance, etc.)
+- Full catalog: `ia_docs/frontend/12-api-catalog.md`
+- Integration rules: `ia_docs/frontend/06-integracion-api-existente.md`
+
 ## Restricciones
 - Restricciones de seguridad en cliente:
   - CSP estricto (sin eval, inline scripts)
@@ -46,11 +56,11 @@
 - Restricciones de contrato API (backend externo):
   - Autenticación JWT Bearer
   - Endpoints RESTful /api/v1/*
-  - Paginación offset/limit, filtros query params
-  - Errores estandarizados {error: msg, code: string}
+  - Paginación page/page_size, filtros query params
+  - Errores validación: `{ detail: [{ loc, msg, type }] }` (FastAPI 422)
 
 ## Supuestos
-- Backend REST API existe y estable (docs Swagger/Postman disponibles).
+- Backend REST API existe y estable (Swagger disponible en staging).
 - Contratos API inmutables salvo notificación.
-- Soporte autenticación JWT.
+- Soporte autenticación JWT Bearer.
 - Proyecto deployable en Vercel/Netlify sin server-side.
