@@ -1,0 +1,66 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Dependency directories
+node_modules/
+
+# Production build
+dist/
+build/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+.env.test
+.env*.local
+
+# Parcel-bundler cache directory
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+public/
+
+# Vite
+.vite
+
+# Storybook
+.out
+.stories
+
+# Temporary folders
+tmp/
+temp/
+
+# VS Code
+.vscode/
+.idea/
+
+.DS_Store
