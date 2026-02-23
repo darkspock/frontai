@@ -1,54 +1,54 @@
-# Feature: Login, Registration and Dashboard Shell
+# Feature: Login, Registro y Shell del Dashboard
 
-## 1. Objective
+## 1. Objetivo
 
-Build the authentication pages (login with magic link, company registration) and the main application shell (sidebar, header, dashboard placeholder) so the app has a navigable structure. No real API calls — all data is mocked or static. This serves as the foundation for all future screens.
+Construir las paginas de autenticacion (login con magic link, registro de empresa) y el shell principal de la aplicacion (sidebar, header, placeholder de dashboard) para que la app tenga una estructura navegable. Sin llamadas API reales — todos los datos son mock o estaticos. Esto sirve como base para todas las pantallas futuras.
 
-## 2. Target user
+## 2. Usuario objetivo
 
-- **Any user** arriving at the app for the first time — they need to log in or register their company.
-- **Admin/Technician/Employee** — once "logged in," they see the app shell with sidebar navigation and a dashboard landing page.
+- **Cualquier usuario** que llega a la app por primera vez — necesita iniciar sesion o registrar su empresa.
+- **Admin/Tecnico/Empleado** — una vez "logueado," ve el shell de la app con navegacion de sidebar y una pagina de inicio del dashboard.
 
-## 3. User journeys
+## 3. Journeys de usuario
 
-**Main flow — Magic link login:**
-1. User opens the app and lands on `/auth/login`.
-2. User enters their email and clicks "Send magic link."
-3. UI shows a confirmation message: "Check your email for the login link."
-4. (In a real flow, user clicks the link in their email and lands on `/auth/verify?token=...`.)
-5. For the demo: clicking the confirmation message or a "Continue" button navigates directly to the dashboard.
+**Flujo principal — Login con magic link:**
+1. El usuario abre la app y llega a `/auth/login`.
+2. El usuario ingresa su email y hace clic en "Enviar magic link."
+3. La UI muestra un mensaje de confirmacion: "Revisa tu email para el enlace de login."
+4. (En un flujo real, el usuario hace clic en el enlace de su email y llega a `/auth/verify?token=...`.)
+5. Para la demo: hacer clic en el mensaje de confirmacion o un boton "Continuar" navega directamente al dashboard.
 
-**Alternative flow — Company registration:**
-1. User clicks "Register your company" link on the login page.
-2. User is taken to `/auth/register`.
-3. User fills in: company name, admin email, email domain.
-4. UI shows success message: "Company registered. Check your email."
-5. A "Back to login" link returns to `/auth/login`.
+**Flujo alternativo — Registro de empresa:**
+1. El usuario hace clic en el enlace "Registra tu empresa" en la pagina de login.
+2. El usuario es llevado a `/auth/register`.
+3. El usuario completa: nombre de empresa, email de admin, dominio de email.
+4. La UI muestra mensaje de exito: "Empresa registrada. Revisa tu email."
+5. Un enlace "Volver al login" regresa a `/auth/login`.
 
-**Alternative flow — Already authenticated:**
-1. User opens the app with a mock token present.
-2. App redirects from `/` to the default route based on role (`/dashboard` for admin).
+**Flujo alternativo — Ya autenticado:**
+1. El usuario abre la app con un token mock presente.
+2. La app redirige desde `/` a la ruta por defecto segun el rol (`/dashboard` para admin).
 
-**Error flows:**
-- Empty email field: inline validation "Email is required."
-- Invalid email format: inline validation "Enter a valid email."
-- Empty required fields on registration form: inline validation per field.
+**Flujos de error:**
+- Campo de email vacio: validacion inline "El email es requerido."
+- Formato de email invalido: validacion inline "Ingresa un email valido."
+- Campos requeridos vacios en formulario de registro: validacion inline por campo.
 
-## 4. Screens and states
+## 4. Pantallas y estados
 
-| Screen | States required |
-|--------|-----------------|
-| Login page (`/auth/login`) | default / sending (button loading) / sent (success message) / validation error |
-| Register page (`/auth/register`) | default / submitting (button loading) / success / validation error |
-| Dashboard (`/dashboard`) | default (static mocked content) / loading (N/A — static data) / empty (N/A — always has mocked cards) / error (N/A — no API calls) / success (N/A) |
-| App shell (sidebar + header) | sidebar expanded (desktop) / sidebar hidden (mobile) / sidebar as sheet (mobile open) |
+| Pantalla | Estados requeridos |
+|----------|-------------------|
+| Pagina de login (`/auth/login`) | default / enviando (boton loading) / enviado (mensaje de exito) / error de validacion |
+| Pagina de registro (`/auth/register`) | default / enviando (boton loading) / exito / error de validacion |
+| Dashboard (`/dashboard`) | default (contenido mock estatico) / loading (N/A — datos estaticos) / empty (N/A — siempre tiene tarjetas mock) / error (N/A — sin llamadas API) / success (N/A) |
+| Shell de la app (sidebar + header) | sidebar expandida (escritorio) / sidebar oculta (movil) / sidebar como sheet (movil abierto) |
 
-## 5. API contracts
+## 5. Contratos de API
 
-> **Note:** For this demo feature, no real API calls are made. All interactions are mocked with `setTimeout` to simulate network latency. The contracts below document what the real API expects, for reference.
+> **Nota:** Para este feature de demo, no se hacen llamadas API reales. Todas las interacciones son mock con `setTimeout` para simular latencia de red. Los contratos debajo documentan lo que la API real espera, como referencia.
 
-### Magic link request
-- **Method + path:** `POST /api/v1/auth/magic-link`
+### Solicitud de magic link
+- **Metodo + path:** `POST /api/v1/auth/magic-link`
 - **Request:**
   ```json
   { "email": "user@company.com" }
@@ -57,10 +57,10 @@ Build the authentication pages (login with magic link, company registration) and
   ```json
   { "data": { "message": "Magic link sent" } }
   ```
-- **Errors:** `422` (validation), `429` (rate limit)
+- **Errores:** `422` (validacion), `429` (limite de tasa)
 
-### Company registration
-- **Method + path:** `POST /api/v1/register`
+### Registro de empresa
+- **Metodo + path:** `POST /api/v1/register`
 - **Request:**
   ```json
   {
@@ -73,10 +73,10 @@ Build the authentication pages (login with magic link, company registration) and
   ```json
   { "data": { "id": "...", "name": "Acme Corp" } }
   ```
-- **Errors:** `422` (validation), `409` (domain already registered)
+- **Errores:** `422` (validacion), `409` (dominio ya registrado)
 
-### Current user
-- **Method + path:** `GET /api/v1/auth/me`
+### Usuario actual
+- **Metodo + path:** `GET /api/v1/auth/me`
 - **Response:**
   ```json
   {
@@ -90,12 +90,12 @@ Build the authentication pages (login with magic link, company registration) and
     }
   }
   ```
-- **Errors:** `401` (not authenticated)
+- **Errores:** `401` (no autenticado)
 
-## 6. Data types
+## 6. Tipos de datos
 
 ```typescript
-// User returned by /auth/me
+// Usuario devuelto por /auth/me
 interface User {
   id: string;
   email: string;
@@ -105,19 +105,19 @@ interface User {
   is_active: boolean;
 }
 
-// Auth state held in context
+// Estado de autenticacion en contexto
 interface AuthState {
   user: User | null;
   token: string | null;
   loading: boolean;
 }
 
-// Magic link request
+// Solicitud de magic link
 interface MagicLinkRequest {
   email: string;
 }
 
-// Registration request
+// Solicitud de registro
 interface RegisterCompanyRequest {
   name: string;
   admin_email: string;
@@ -125,154 +125,154 @@ interface RegisterCompanyRequest {
 }
 ```
 
-## 7. Validation rules
+## 7. Reglas de validacion
 
-### Login form
-- `email`: required, must be valid email format.
+### Formulario de login
+- `email`: requerido, debe ser formato email valido.
 
-### Registration form
-- `name`: required, min length 2.
-- `admin_email`: required, must be valid email format.
-- `email_domains`: required, at least one domain, each must be a valid domain (e.g., `acme.com`).
+### Formulario de registro
+- `name`: requerido, longitud minima 2.
+- `admin_email`: requerido, debe ser formato email valido.
+- `email_domains`: requerido, al menos un dominio, cada uno debe ser un dominio valido (ej. `acme.com`).
 
-## 8. Error cases
+## 8. Casos de error
 
-| Error | UI response |
-|-------|-------------|
-| Empty email on login | Field-level error: "Email is required" |
-| Invalid email format on login | Field-level error: "Enter a valid email" |
-| Empty company name on register | Field-level error: "Company name is required" |
-| Empty admin email on register | Field-level error: "Admin email is required" |
-| Empty email domains on register | Field-level error: "At least one domain is required" |
-| Network error (simulated) | Toast error: "Something went wrong. Please try again." |
+| Error | Respuesta en UI |
+|-------|-----------------|
+| Email vacio en login | Error a nivel de campo: "El email es requerido" |
+| Formato de email invalido en login | Error a nivel de campo: "Ingresa un email valido" |
+| Nombre de empresa vacio en registro | Error a nivel de campo: "El nombre de empresa es requerido" |
+| Email de admin vacio en registro | Error a nivel de campo: "El email de admin es requerido" |
+| Dominios de email vacios en registro | Error a nivel de campo: "Se requiere al menos un dominio" |
+| Error de red (simulado) | Error toast: "Algo salio mal. Intenta de nuevo." |
 
-## 9. Navigation and routing
+## 9. Navegacion y rutas
 
-### Routes
+### Rutas
 
-| Path | Page | Auth required | Roles |
-|------|------|---------------|-------|
-| `/auth/login` | Login page | No | — |
-| `/auth/register` | Register page | No | — |
-| `/auth/verify` | Verify page (placeholder) | No | — |
-| `/` | Redirect to role default | Yes | All |
-| `/dashboard` | Dashboard | Yes | admin |
-| `/my/equipment` | Placeholder page | Yes | employee |
-| `/requests` | Placeholder page | Yes | technician |
+| Path | Pagina | Autenticacion requerida | Roles |
+|------|--------|------------------------|-------|
+| `/auth/login` | Pagina de login | No | — |
+| `/auth/register` | Pagina de registro | No | — |
+| `/auth/verify` | Pagina de verificacion (placeholder) | No | — |
+| `/` | Redirigir a ruta por defecto del rol | Si | Todos |
+| `/dashboard` | Dashboard | Si | admin |
+| `/my/equipment` | Pagina placeholder | Si | employee |
+| `/requests` | Pagina placeholder | Si | technician |
 
-### Role-based defaults
+### Rutas por defecto segun rol
 - `admin` → `/dashboard`
 - `technician` → `/requests`
 - `employee` → `/my/equipment`
 
-### Auth guard behavior
-- Unauthenticated user accessing a protected route → redirect to `/auth/login?returnTo={current_path}`.
-- Authenticated user accessing a route outside their role → redirect to their role default.
-- Authenticated user accessing `/auth/login` → redirect to role default.
+### Comportamiento del guard de autenticacion
+- Usuario no autenticado accediendo a ruta protegida → redirigir a `/auth/login?returnTo={current_path}`.
+- Usuario autenticado accediendo a ruta fuera de su rol → redirigir a su ruta por defecto.
+- Usuario autenticado accediendo a `/auth/login` → redirigir a ruta por defecto del rol.
 
-## 10. UI layout
+## 10. Layout de UI
 
-### Login page (`/auth/login`)
-- **Layout:** Two-panel (branded left panel + form right panel) on desktop. Single column on mobile.
-- **Left panel (desktop only):** Brand color background, app logo, tagline text. Takes 50% width.
-- **Right panel:** Centered form card with max-width ~400px.
-- **Key components:** Input (email), Button (submit), link to register.
-- **Primary action:** "Send magic link" button.
-- **Secondary action:** "Register your company" text link below the form.
+### Pagina de login (`/auth/login`)
+- **Layout:** Dos paneles (panel izquierdo de marca + panel derecho con formulario) en escritorio. Columna unica en movil.
+- **Panel izquierdo (solo escritorio):** Fondo de color de marca, logo de app, texto de eslogan. Ocupa 50% del ancho.
+- **Panel derecho:** Tarjeta de formulario centrada con max-width ~400px.
+- **Componentes clave:** Input (email), Button (enviar), enlace a registro.
+- **Accion primaria:** Boton "Enviar magic link".
+- **Accion secundaria:** Enlace de texto "Registra tu empresa" debajo del formulario.
 
-### Register page (`/auth/register`)
-- **Layout:** Same two-panel layout as login.
-- **Right panel:** Form with 3 fields (company name, admin email, email domain).
-- **Key components:** Input (text + email), Button (submit), link back to login.
-- **Primary action:** "Register" button.
-- **Secondary action:** "Back to login" text link.
+### Pagina de registro (`/auth/register`)
+- **Layout:** Mismo layout de dos paneles que login.
+- **Panel derecho:** Formulario con 3 campos (nombre de empresa, email de admin, dominio de email).
+- **Componentes clave:** Input (texto + email), Button (enviar), enlace volver a login.
+- **Accion primaria:** Boton "Registrar".
+- **Accion secundaria:** Enlace de texto "Volver al login".
 
-### App shell (layout wrapper)
-- **Layout:** Sidebar (left, 256px desktop / hidden mobile) + Header (top, 64px sticky) + Content area (remaining space).
-- **Sidebar:** Navigation links grouped by section. Each link has icon (Lucide) + label. Active link highlighted. Logo/app name at top.
-- **Header:** Hamburger menu (mobile) on left, user avatar + name dropdown on right.
-- **Content area:** `max-w-7xl mx-auto p-6`. Renders child route via `<Outlet />`.
+### Shell de la app (wrapper de layout)
+- **Layout:** Sidebar (izquierda, 256px escritorio / oculta en movil) + Header (arriba, 64px sticky) + Area de contenido (espacio restante).
+- **Sidebar:** Enlaces de navegacion agrupados por seccion. Cada enlace tiene icono (Lucide) + etiqueta. Enlace activo resaltado. Logo/nombre de app en la parte superior.
+- **Header:** Menu hamburguesa (movil) a la izquierda, avatar de usuario + dropdown de nombre a la derecha.
+- **Area de contenido:** `max-w-7xl mx-auto p-6`. Renderiza ruta hija via `<Outlet />`.
 
 ### Dashboard (`/dashboard`)
-- **Layout:** Page header ("Dashboard" title) + grid of placeholder cards.
-- **Key components:** 4 stat cards in a row (mocked numbers), empty chart placeholders below.
-- **Columns:** 4-column grid on desktop, 2 on tablet, 1 on mobile.
-- **Primary action:** None (read-only page).
+- **Layout:** Encabezado de pagina (titulo "Dashboard") + grid de tarjetas placeholder.
+- **Componentes clave:** 4 tarjetas de estadisticas en fila (numeros mock), placeholders de graficos vacios debajo.
+- **Columnas:** Grid de 4 columnas en escritorio, 2 en tablet, 1 en movil.
+- **Accion primaria:** Ninguna (pagina de solo lectura).
 
-### Sidebar navigation items (for demo)
+### Elementos de navegacion de sidebar (para demo)
 
-| Section | Label | Icon | Route | Roles |
-|---------|-------|------|-------|-------|
-| My Activity | My Equipment | `Monitor` | `/my/equipment` | employee |
-| My Activity | My Requests | `MessageSquare` | `/my/requests` | employee |
-| Operations | Dashboard | `LayoutDashboard` | `/dashboard` | admin |
-| Operations | Requests | `Inbox` | `/requests` | technician, admin |
-| Operations | Assets | `HardDrive` | `/assets` | technician, admin |
-| Management | Users | `Users` | `/users` | admin |
-| Management | Departments | `Building2` | `/departments` | admin |
-| Management | Settings | `Settings` | `/settings` | admin |
+| Seccion | Etiqueta | Icono | Ruta | Roles |
+|---------|----------|-------|------|-------|
+| Mi Actividad | Mi Equipo | `Monitor` | `/my/equipment` | employee |
+| Mi Actividad | Mis Solicitudes | `MessageSquare` | `/my/requests` | employee |
+| Operaciones | Dashboard | `LayoutDashboard` | `/dashboard` | admin |
+| Operaciones | Solicitudes | `Inbox` | `/requests` | technician, admin |
+| Operaciones | Activos | `HardDrive` | `/assets` | technician, admin |
+| Gestion | Usuarios | `Users` | `/users` | admin |
+| Gestion | Departamentos | `Building2` | `/departments` | admin |
+| Gestion | Configuracion | `Settings` | `/settings` | admin |
 
-## 11. Out of scope
+## 11. Fuera de alcance
 
-- Real API integration (all calls are mocked with `setTimeout`).
-- Password login flow.
-- Google/Microsoft OAuth buttons.
-- Token verification flow (`/auth/verify` is a placeholder only).
-- Functional dashboard widgets with real data.
-- WebSocket / real-time notifications.
-- i18n (English only for this feature).
-- All pages beyond login, register, and dashboard shell (they show "Coming soon" placeholder).
+- Integracion API real (todas las llamadas son mock con `setTimeout`).
+- Flujo de login con contraseña.
+- Botones de OAuth Google/Microsoft.
+- Flujo de verificacion de token (`/auth/verify` es solo un placeholder).
+- Widgets funcionales de dashboard con datos reales.
+- WebSocket / notificaciones en tiempo real.
+- i18n (solo español para este feature).
+- Todas las paginas mas alla de login, registro y shell del dashboard (muestran placeholder "Proximamente").
 
 ---
 
-## Implementation reference (reverse engineering from DSM)
+## Referencia de implementacion (ingenieria inversa desde DSM)
 
-> This section documents how the original DeskSupportMonkey frontend implements these patterns, for educational reference.
+> Esta seccion documenta como el frontend original de DeskSupportMonkey implementa estos patrones, como referencia educativa.
 
-### Auth context pattern (DSM: `src/contexts/AuthContext.tsx`)
-- `AuthProvider` wraps the entire app.
-- State: `{ user, token, loading }`.
-- On mount: reads token from `localStorage`, calls `GET /auth/me` to hydrate user.
-- `login(token)`: saves to localStorage, fetches user.
-- `logout()`: removes token, clears user.
-- `isRole(...roles)`: check current user role.
-- Listens for `401` events from Axios interceptor to auto-logout.
+### Patron de contexto de autenticacion (DSM: `src/contexts/AuthContext.tsx`)
+- `AuthProvider` envuelve toda la app.
+- Estado: `{ user, token, loading }`.
+- Al montar: lee token de `localStorage`, llama `GET /auth/me` para hidratar usuario.
+- `login(token)`: guarda en localStorage, obtiene usuario.
+- `logout()`: elimina token, limpia usuario.
+- `isRole(...roles)`: verifica rol del usuario actual.
+- Escucha eventos `401` del interceptor de Axios para auto-logout.
 
-### Route guard pattern (DSM: `src/components/auth/RequireRole.tsx`)
-- Wraps route elements: `<RequireRole roles={['admin']}><Page /></RequireRole>`.
-- No user → redirect to `/auth/login?returnTo=...`.
-- User with wrong role → redirect to `getDefaultRouteForRole(user.role)`.
+### Patron de guard de rutas (DSM: `src/components/auth/RequireRole.tsx`)
+- Envuelve elementos de ruta: `<RequireRole roles={['admin']}><Page /></RequireRole>`.
+- Sin usuario → redirigir a `/auth/login?returnTo=...`.
+- Usuario con rol incorrecto → redirigir a `getDefaultRouteForRole(user.role)`.
 
-### App shell pattern (DSM: `src/components/layout/AppLayout.tsx`)
-- Renders `<Sidebar>` + `<Header>` + `<main><Outlet /></main>`.
-- Mobile: sidebar as overlay (state managed by `mobileNavOpen`).
-- Forces password set for staff without password.
-- Redirects `/` to role default.
+### Patron de shell de app (DSM: `src/components/layout/AppLayout.tsx`)
+- Renderiza `<Sidebar>` + `<Header>` + `<main><Outlet /></main>`.
+- Movil: sidebar como overlay (estado gestionado por `mobileNavOpen`).
+- Fuerza establecimiento de contraseña para staff sin contraseña.
+- Redirige `/` a ruta por defecto del rol.
 
-### Login page pattern (DSM: `src/pages/auth/LoginPage.tsx`)
-- Two-panel layout via `AuthShell` wrapper.
-- `LoginMode` toggle between magic-link and password.
-- On magic link: `api.post('/auth/magic-link', { email })` → show "check email" message.
-- On password: `api.post('/auth/login', { email, password })` → `login(token)` → navigate.
-- Already authenticated → redirect to role default.
+### Patron de pagina de login (DSM: `src/pages/auth/LoginPage.tsx`)
+- Layout de dos paneles via wrapper `AuthShell`.
+- `LoginMode` alterna entre magic-link y contraseña.
+- En magic link: `api.post('/auth/magic-link', { email })` → muestra mensaje "revisa tu email".
+- En contraseña: `api.post('/auth/login', { email, password })` → `login(token)` → navegar.
+- Ya autenticado → redirigir a ruta por defecto del rol.
 
-### API client pattern (DSM: `src/lib/api.ts`)
-- Axios instance with `baseURL: '/api/v1'`.
-- Request interceptor: attaches `Authorization: Bearer {token}`.
-- Response interceptor: normalizes error messages, handles 401 (clear token, redirect to login).
-- Vite proxy: `/api` → `http://localhost:8001`.
+### Patron de cliente API (DSM: `src/lib/api.ts`)
+- Instancia Axios con `baseURL: '/api/v1'`.
+- Interceptor de request: adjunta `Authorization: Bearer {token}`.
+- Interceptor de response: normaliza mensajes de error, maneja 401 (limpia token, redirige a login).
+- Proxy de Vite: `/api` → `http://localhost:8001`.
 
-### Sidebar pattern (DSM: `src/components/layout/Sidebar.tsx`)
-- Desktop: `w-56 hidden md:flex md:flex-col`, always visible.
-- Mobile: `fixed inset-0 z-40 md:hidden`, overlay with backdrop.
-- Navigation items grouped in collapsible sections.
-- Active route auto-expands its section.
-- Items filtered by `user.role`.
+### Patron de sidebar (DSM: `src/components/layout/Sidebar.tsx`)
+- Escritorio: `w-56 hidden md:flex md:flex-col`, siempre visible.
+- Movil: `fixed inset-0 z-40 md:hidden`, overlay con backdrop.
+- Items de navegacion agrupados en secciones colapsables.
+- La ruta activa auto-expande su seccion.
+- Items filtrados por `user.role`.
 
 ### CSS / Theming (DSM: `src/index.css`)
-- Tailwind CSS with design tokens as CSS custom properties in `:root`.
-- OKLCH color space for all colors.
-- Sidebar has its own dark tokens.
+- Tailwind CSS con tokens de diseño como propiedades CSS custom en `:root`.
+- Espacio de color OKLCH para todos los colores.
+- Sidebar tiene sus propios tokens oscuros.
 
 ---
 

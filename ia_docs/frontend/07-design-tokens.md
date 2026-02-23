@@ -1,126 +1,126 @@
-# Design tokens
+# Tokens de diseño
 
-Concrete values for this project. Every implementation must use these tokens — no arbitrary values.
+Valores concretos para este proyecto. Cada implementación debe usar estos tokens — no usar valores arbitrarios.
 
 ---
 
-## Colors (semantic)
+## Colores (semánticos)
 
-Based on shadcn/ui slate theme with CSS variables. Use these Tailwind classes, not raw hex values.
+Basados en el tema slate de shadcn/ui con variables CSS. Usa estas clases Tailwind, no valores hex crudos.
 
 ### Core
 
-| Token | Usage | Tailwind class |
+| Token | Uso | Clase Tailwind |
 |---|---|---|
-| Background | Page background | `bg-background` |
-| Foreground | Default text | `text-foreground` |
-| Primary | Action buttons, links, active states | `bg-primary`, `text-primary` |
-| Secondary | Less emphasis buttons | `bg-secondary`, `text-secondary-foreground` |
-| Muted | Disabled, placeholders, subtle backgrounds | `bg-muted`, `text-muted-foreground` |
-| Accent | Hover states, highlights | `bg-accent`, `text-accent-foreground` |
-| Destructive | Errors, delete actions | `bg-destructive`, `text-destructive` |
+| Background | Fondo de página | `bg-background` |
+| Foreground | Texto por defecto | `text-foreground` |
+| Primary | Botones de acción, enlaces, estados activos | `bg-primary`, `text-primary` |
+| Secondary | Botones con menos énfasis | `bg-secondary`, `text-secondary-foreground` |
+| Muted | Deshabilitado, placeholders, fondos sutiles | `bg-muted`, `text-muted-foreground` |
+| Accent | Estados hover, destacados | `bg-accent`, `text-accent-foreground` |
+| Destructive | Errores, acciones de eliminación | `bg-destructive`, `text-destructive` |
 
-### Status colors
+### Colores de estado
 
-| Status | Background | Text | Border |
+| Estado | Fondo | Texto | Borde |
 |---|---|---|---|
 | Success | `bg-green-50` | `text-green-700` | `border-green-200` |
 | Warning | `bg-amber-50` | `text-amber-700` | `border-amber-200` |
 | Error | `bg-destructive/15` | `text-destructive` | `border-destructive/30` |
 | Info | `bg-blue-50` | `text-blue-700` | `border-blue-200` |
 
-### Usage rules
+### Reglas de uso
 
-- Never use raw hex colors in components.
-- Use semantic tokens (`bg-primary`) over literal colors (`bg-blue-600`).
-- Status colors follow the table above — no variations per screen.
-- Opacity modifiers are allowed: `bg-destructive/15`, `bg-primary/10`.
+- Nunca usar colores hex crudos en componentes.
+- Usar tokens semánticos (`bg-primary`) sobre colores literales (`bg-blue-600`).
+- Los colores de estado siguen la tabla anterior — sin variaciones por pantalla.
+- Se permiten modificadores de opacidad: `bg-destructive/15`, `bg-primary/10`.
 
 ---
 
-## Typography
+## Tipografía
 
-One font family: system default (Tailwind's `font-sans`). No custom fonts in v1.
+Una sola familia de fuentes: sistema por defecto (Tailwind's `font-sans`). Sin fuentes personalizadas en v1.
 
-| Level | Tailwind classes | Size | Use for |
+| Nivel | Clases Tailwind | Tamaño | Usar para |
 |---|---|---|---|
-| H1 | `text-3xl font-bold` | 30px | Page titles |
-| H2 | `text-2xl font-semibold` | 24px | Section headings |
-| H3 | `text-xl font-semibold` | 20px | Card titles, subsections |
-| H4 | `text-lg font-medium` | 18px | Group headings |
-| Body | `text-base` | 16px | Default text |
-| Small | `text-sm` | 14px | Table cells, secondary text, helper text |
-| Caption | `text-xs` | 12px | Badges, timestamps, metadata |
+| H1 | `text-3xl font-bold` | 30px | Títulos de página |
+| H2 | `text-2xl font-semibold` | 24px | Encabezados de sección |
+| H3 | `text-xl font-semibold` | 20px | Títulos de tarjeta, subsecciones |
+| H4 | `text-lg font-medium` | 18px | Encabezados de grupo |
+| Body | `text-base` | 16px | Texto por defecto |
+| Small | `text-sm` | 14px | Celdas de tabla, texto secundario, texto de ayuda |
+| Caption | `text-xs` | 12px | Badges, timestamps, metadatos |
 
-### Rules
+### Reglas
 
-- Maximum 2 font weights per screen (regular + semibold or bold).
-- Line height: use Tailwind defaults (already set per size).
-- Do not use `text-lg` for body text — reserve it for headings.
-- Muted text: always pair with `text-muted-foreground`, never raw gray values.
+- Máximo 2 pesos de fuente por pantalla (regular + semibold o bold).
+- Altura de línea: usar valores por defecto de Tailwind (ya establecidos por tamaño).
+- No usar `text-lg` para texto de cuerpo — reservarlo para encabezados.
+- Texto muted: siempre combinar con `text-muted-foreground`, nunca valores gray crudos.
 
 ---
 
-## Spacing
+## Espaciado
 
-Use Tailwind's spacing scale only. These are the allowed values:
+Usa solo la escala de espaciado de Tailwind. Estos son los valores permitidos:
 
-| Token | Value | Common use |
+| Token | Valor | Uso común |
 |---|---|---|
-| `1` | 4px | Tight gaps (icon-to-text) |
-| `2` | 8px | Inline spacing, small gaps |
-| `3` | 12px | Form field internal padding |
-| `4` | 16px | Standard padding and gaps |
-| `6` | 24px | Section separation |
-| `8` | 32px | Major section gaps |
-| `12` | 48px | Page-level vertical rhythm |
-| `16` | 64px | Large separation (page top/bottom) |
+| `1` | 4px | Espacios ajustados (icono-a-texto) |
+| `2` | 8px | Espaciado inline, espacios pequeños |
+| `3` | 12px | Padding interno de campo de formulario |
+| `4` | 16px | Padding y espacios estándar |
+| `6` | 24px | Separación de sección |
+| `8` | 32px | Espacios entre secciones grandes |
+| `12` | 48px | Ritmo vertical de página |
+| `16` | 64px | Separación grande (arriba/abajo de página) |
 
-### Rules
+### Reglas
 
-- Within a group: smaller spacing (`gap-2`, `space-y-2`).
-- Between groups: larger spacing (`gap-6`, `space-y-6`).
-- Page content padding: `p-6` (24px).
-- Card internal padding: `p-4` (16px) or `p-6` (24px).
-- No arbitrary values like `p-[17px]` or `mt-[23px]`.
+- Dentro de un grupo: espaciado más pequeño (`gap-2`, `space-y-2`).
+- Entre grupos: espaciado más grande (`gap-6`, `space-y-6`).
+- Padding de contenido de página: `p-6` (24px).
+- Padding interno de tarjeta: `p-4` (16px) o `p-6` (24px).
+- Sin valores arbitrarios como `p-[17px]` o `mt-[23px]`.
 
 ---
 
-## Border radius
+## Bordes redondeados
 
-| Token | Value | Use for |
+| Token | Valor | Usar para |
 |---|---|---|
-| `rounded-md` | 6px | Default (buttons, inputs, badges) |
-| `rounded-lg` | 8px | Cards, dialogs, sheets |
-| `rounded-xl` | 12px | Large containers (rare) |
-| `rounded-full` | 9999px | Avatars, circular badges, pills |
+| `rounded-md` | 6px | Por defecto (botones, inputs, badges) |
+| `rounded-lg` | 8px | Tarjetas, diálogos, sheets |
+| `rounded-xl` | 12px | Contenedores grandes (raro) |
+| `rounded-full` | 9999px | Avatares, badges circulares, pills |
 
-Do not use `rounded-sm` or `rounded` (4px) — too subtle. Default is `rounded-md`.
+No usar `rounded-sm` o `rounded` (4px) — demasiado sutil. Por defecto es `rounded-md`.
 
 ---
 
-## Shadows
+## Sombras
 
-| Token | Use for |
+| Token | Usar para |
 |---|---|
-| `shadow-sm` | Subtle elevation (dropdowns, popovers) |
-| `shadow` | Cards and panels |
-| `shadow-md` | Elevated elements (dialogs, sheets) |
-| `shadow-lg` | Floating elements (modals) |
+| `shadow-sm` | Elevación sutil (dropdowns, popovers) |
+| `shadow` | Tarjetas y paneles |
+| `shadow-md` | Elementos elevados (diálogos, sheets) |
+| `shadow-lg` | Elementos flotantes (modales) |
 
-### Rules
+### Reglas
 
-- Most UI elements have no shadow (flat with border).
-- Cards use `shadow` or `border` — not both unless intentional.
-- Dialogs and sheets always use `shadow-lg`.
+- La mayoría de elementos UI no tienen sombra (plano con borde).
+- Las tarjetas usan `shadow` o `border` — no ambos a menos que sea intencional.
+- Los diálogos y sheets siempre usan `shadow-lg`.
 
 ---
 
-## Dark mode
+## Modo oscuro
 
-**Not supported in v1.** This is an explicit decision.
+**No soportado en v1.** Esta es una decisión explícita.
 
-- Do not add `dark:` variants to any component.
-- Do not implement theme switching.
-- Design only for light mode.
-- If dark mode is added later, it will be a separate ADR and a dedicated task.
+- No añadir variantes `dark:` a ningún componente.
+- No implementar cambio de tema.
+- Diseñar solo para modo claro.
+- Si el modo oscuro se añade después, será un ADR separado y una tarea dedicada.

@@ -1,84 +1,84 @@
-# Accessibility baseline
+# Línea base de accesibilidad
 
-Minimum accessibility requirements for every screen. This is not a complete WCAG audit — it covers the rules that most commonly fail in management apps.
-
----
-
-## Color contrast
-
-- All text must meet WCAG AA contrast ratio:
-  - Normal text (< 18px): **4.5:1** minimum.
-  - Large text (>= 18px bold or >= 24px): **3:1** minimum.
-- Do not use color as the only indicator of state. Pair with an icon, text, or border.
-  - Bad: a red dot alone to indicate error.
-  - Good: a red dot + the word "Error" or an `AlertTriangle` icon.
-- Use the semantic color tokens from `07-design-tokens.md` — they are already contrast-safe.
+Requisitos mínimos de accesibilidad para cada pantalla. Esto no es una auditoría WCAG completa — cubre las reglas que más comúnmente fallan en aplicaciones de gestión.
 
 ---
 
-## Keyboard navigation
+## Contraste de color
 
-- Every interactive element must be reachable with Tab.
-- Tab order must follow visual order (left-to-right, top-to-bottom).
-- Focus must be visible: use Tailwind's `focus-visible:ring-2 focus-visible:ring-ring` (shadcn/ui default).
-- Do not remove focus outlines with `outline-none` without adding an alternative visible focus style.
-- Dialogs, sheets, and popovers must trap focus inside when open.
-- Escape key must close any open overlay (dialog, sheet, popover, dropdown).
-- Enter or Space must activate buttons and links.
+- Todo el texto debe cumplir con la relación de contraste WCAG AA:
+  - Texto normal (< 18px): mínimo **4.5:1**.
+  - Texto grande (>= 18px bold o >= 24px): mínimo **3:1**.
+- No usar color como único indicador de estado. Emparejar con un icono, texto o borde.
+  - Malo: un punto rojo solo para indicar error.
+  - Bueno: un punto rojo + la palabra "Error" o un icono `AlertTriangle`.
+- Usar tokens de color semánticos de `07-design-tokens.md` — ya son seguros en contraste.
 
 ---
 
-## ARIA labels
+## Navegación por teclado
 
-- Every icon-only button must have `aria-label`:
+- Cada elemento interactivo debe ser alcanzable con Tab.
+- El orden de Tab debe seguir el orden visual (izquierda-a-derecha, arriba-a-abajo).
+- El foco debe ser visible: usar `focus-visible:ring-2 focus-visible:ring-ring` de Tailwind (por defecto shadcn/ui).
+- No remover contornos de foco con `outline-none` sin añadir un estilo de foco visible alternativo.
+- Los diálogos, sheets y popovers deben atrapar el foco dentro cuando están abiertos.
+- La tecla Escape debe cerrar cualquier overlay abierto (diálogo, sheet, popover, dropdown).
+- Enter o Space deben activar botones y enlaces.
+
+---
+
+## Etiquetas ARIA
+
+- Cada botón solo icono debe tener `aria-label`:
   ```tsx
   <Button size="icon" aria-label="Delete user">
     <Trash2 className="h-4 w-4" />
   </Button>
   ```
-- Form inputs must be linked to their label via `htmlFor`/`id`:
+- Los inputs de formulario deben estar vinculados a su etiqueta vía `htmlFor`/`id`:
   ```tsx
   <Label htmlFor="email">Email</Label>
   <Input id="email" type="email" />
   ```
-- Error messages must be linked to their input with `aria-describedby`:
+- Los mensajes de error deben estar vinculados a su input con `aria-describedby`:
   ```tsx
   <Input id="email" aria-describedby="email-error" />
   <p id="email-error" className="text-xs text-destructive">Invalid email</p>
   ```
-- Decorative icons (not conveying information) must have `aria-hidden="true"`.
-- Use `role="alert"` for error messages that appear dynamically.
+- Los iconos decorativos (que no transmiten información) deben tener `aria-hidden="true"`.
+- Usar `role="alert"` para mensajes de error que aparecen dinámicamente.
 
 ---
 
-## Screen readers
+## Lectores de pantalla
 
-- Page titles must be unique and descriptive (set via `document.title` or a title component).
-- Headings must follow hierarchy: one `h1` per page, then `h2`, `h3` in order. Do not skip levels.
-- Tables must use `<thead>` and `<th>` for column headers.
-- Live regions: toast notifications should use `role="status"` or `aria-live="polite"`.
-- Navigation landmarks: use `<nav>`, `<main>`, `<header>`, `<aside>` for the app shell.
-
----
-
-## Forms
-
-- Every input must have a visible label. Do not rely on placeholder as the only label.
-- Required fields must indicate it: add `*` to the label or use `aria-required="true"`.
-- Error messages must appear immediately adjacent to the field, not only at the top of the form.
-- Submit buttons must not be disabled as the primary validation pattern (see screen-design-guide).
+- Los títulos de página deben ser únicos y descriptivos (establecidos vía `document.title` o un componente de título).
+- Los encabezados deben seguir la jerarquía: un `h1` por página, luego `h2`, `h3` en orden. No saltar niveles.
+- Las tablas deben usar `<thead>` y `<th>` para encabezados de columna.
+- Regiones en vivo: las notificaciones toast deben usar `role="status"` o `aria-live="polite"`.
+- Puntos de referencia de navegación: usar `<nav>`, `<main>`, `<header>`, `<aside>` para el shell de la app.
 
 ---
 
-## Checklist for every screen
+## Formularios
 
-- [ ] All text passes AA contrast ratio.
-- [ ] Color is not the only state indicator.
-- [ ] Every interactive element reachable by Tab.
-- [ ] Focus is visible on all interactive elements.
-- [ ] Icon-only buttons have `aria-label`.
-- [ ] Form inputs linked to labels (`htmlFor`/`id`).
-- [ ] Error messages linked to inputs (`aria-describedby`).
-- [ ] One `h1` per page, heading hierarchy respected.
-- [ ] Semantic landmarks used (`nav`, `main`, `aside`, `header`).
-- [ ] Escape closes overlays.
+- Cada input debe tener una etiqueta visible. No depender del placeholder como única etiqueta.
+- Los campos requeridos deben indicarlo: añadir `*` a la etiqueta o usar `aria-required="true"`.
+- Los mensajes de error deben aparecer inmediatamente adyacentes al campo, no solo en la parte superior del formulario.
+- Los botones de envío no deben estar deshabilitados como patrón de validación principal (ver screen-design-guide).
+
+---
+
+## Checklist para cada pantalla
+
+- [ ] Todo el texto cumple con la relación de contraste AA.
+- [ ] El color no es el único indicador de estado.
+- [ ] Cada elemento interactivo es alcanzable con Tab.
+- [ ] El foco es visible en todos los elementos interactivos.
+- [ ] Los botones solo icono tienen `aria-label`.
+- [ ] Los inputs de formulario están vinculados a etiquetas (`htmlFor`/`id`).
+- [ ] Los mensajes de error están vinculados a inputs (`aria-describedby`).
+- [ ] Un `h1` por página, jerarquía de encabezados respetada.
+- [ ] Se usan puntos de referencia semánticos (`nav`, `main`, `aside`, `header`).
+- [ ] Escape cierra overlays.

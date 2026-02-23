@@ -1,36 +1,36 @@
-# Operations and governance
+# Operación y gobernanza
 
 ## Roles
 
-- **Product owner:** Defines UX scope in `docs/`.
-- **Frontend technical lead:** Approves ADRs, integrates changes.
-- **Operations:** Deploy, monitoring (Vercel/Sentry).
+- **Product owner:** Define el alcance de UX en `docs/`.
+- **Frontend technical lead:** Aprueba ADRs, integra cambios.
+- **Operaciones:** Deploy, monitoreo (Vercel/Sentry).
 
-## Change process
+## Proceso de cambio
 
-### Mandatory (every feature)
-1. Create feature spec in `working/[feature]/spec.md`.
-2. Run validator agent — complete spec until `Status: validated`.
-3. Agent generates `working/[feature]/tasks.md`.
-4. Implement with Claude Code / Codex — one task at a time, marking `[x]`.
-5. Acceptance — compare result vs spec section by section.
-6. Technical validation (lint / typecheck / build).
-7. PR review + merge + documentation update.
+### Obligatorio (cada feature)
+1. Crear spec del feature en `working/[feature]/spec.md`.
+2. Ejecutar agente validador — completar spec hasta `Status: validated`.
+3. Agente genera `working/[feature]/tasks.md`.
+4. Implementar con Claude Code / Codex — una tarea por vez, marcando `[x]`.
+5. Aceptación — comparar resultado vs spec sección por sección.
+6. Validación técnica (lint / typecheck / build).
+7. Revisión de PR + merge + actualización de documentación.
 
-### Optional (major features requiring business alignment)
-- Define scope in `docs/` (business context).
-- Translate technical rules to `ia_docs/`.
+### Opcional (features mayores que requieren alineación de negocio)
+- Definir alcance en `docs/` (contexto de negocio).
+- Traducir reglas técnicas a `ia_docs/`.
 
-## Definition of Done
+## Definición de Completado
 
-- [ ] Spec `Status: validated` before coding started.
-- [ ] All tasks in `tasks.md` marked `[x]`.
-- [ ] Acceptance checklist passed (result matches spec section by section).
+- [ ] Spec `Status: validated` antes de empezar a codificar.
+- [ ] Todas las tareas en `tasks.md` marcadas `[x]`.
+- [ ] Lista de verificación de aceptación pasada (resultado coincide con spec sección por sección).
 - [ ] Spec `Status: implemented`.
-- [ ] `npm run lint` passes.
-- [ ] `npm run typecheck` passes.
-- [ ] `npm run build` passes.
-- [ ] Test coverage >80%.
-- [ ] Dev server runs without errors.
-- [ ] Documentation synchronized (`ia_docs/`, `docs/`).
-- [ ] Demo on deploy preview.
+- [ ] `npm run lint` pasado.
+- [ ] `npm run typecheck` pasado.
+- [ ] `npm run build` pasado.
+- [ ] Cobertura de tests >80%.
+- [ ] Servidor dev ejecuta sin errores.
+- [ ] Documentación sincronizada (`ia_docs/`, `docs/`).
+- [ ] Demo en deploy preview.

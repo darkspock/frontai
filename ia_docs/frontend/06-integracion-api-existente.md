@@ -1,68 +1,68 @@
-# API integration
+# Integración de API
 
-## API origin
+## Origen de la API
 
-- **Platform:** Desk Support Monkey — IT Service Desk & Asset Inventory
-- **Base URL (staging):** `https://staging.desksupportmonkey.com`
-- **API prefix:** `/api/v1/`
-- **OpenAPI spec:** `https://staging.desksupportmonkey.com/openapi.json`
+- **Plataforma:** Desk Support Monkey — IT Service Desk & Asset Inventory
+- **URL base (staging):** `https://staging.desksupportmonkey.com`
+- **Prefijo de API:** `/api/v1/`
+- **Spec OpenAPI:** `https://staging.desksupportmonkey.com/openapi.json`
 - **Swagger UI:** `https://staging.desksupportmonkey.com/docs`
 
 ---
 
-## Authentication
+## Autenticación
 
-- **Method:** Bearer JWT (HTTPBearer).
-- **Token source:** `localStorage.getItem('token')`.
-- **Login flows:**
+- **Método:** Bearer JWT (HTTPBearer).
+- **Fuente del token:** `localStorage.getItem('token')`.
+- **Flujos de login:**
   - Magic link: `POST /api/v1/auth/magic-link` → email link → `POST /api/v1/auth/verify` → token.
-  - Password (admin only): `POST /api/v1/auth/login` → token.
-- **Current user:** `GET /api/v1/auth/me`.
-- **Public endpoints (no auth):** `/health`, `/api/v1/auth/magic-link`, `/api/v1/auth/verify`, `/api/v1/auth/login`, `/api/v1/register`.
-- **All other endpoints require Bearer token.**
+  - Contraseña (solo admin): `POST /api/v1/auth/login` → token.
+- **Usuario actual:** `GET /api/v1/auth/me`.
+- **Endpoints públicos (sin auth):** `/health`, `/api/v1/auth/magic-link`, `/api/v1/auth/verify`, `/api/v1/auth/login`, `/api/v1/register`.
+- **Todos los demás endpoints requieren token Bearer.**
 
 ---
 
-## Integration rules
+## Reglas de integración
 
-- **HTTP client:** TanStack Query with fetcher in `src/services/api.ts`.
-- **Error handling:** Global query error handler + toast messages. Always extract API error messages (never show generic errors when the API returned a specific message).
-- **Retries:** Query default `retry: 3`, `staleTime: 5min`.
-- **Pagination:** All list endpoints use `page` (1-based) + `page_size` query params.
-- **Response typing:** API responses are untyped in the OpenAPI spec (`{}` schema). Define Zod schemas based on actual API responses and validate at the boundary.
-- **Validation errors:** `422` returns `{ detail: [{ loc, msg, type }] }` (FastAPI standard).
-- **Mutations:** Optimistic updates + rollback on error where appropriate.
-- **Large lists:** Use TanStack Query `useInfiniteQuery` when needed.
-
----
-
-## Sync with backend
-
-- Update this doc + Zod schemas in `src/types/` when API changes.
-- API version: `/v1/`, backward compatible.
-- No backend control from this project.
+- **Cliente HTTP:** TanStack Query con fetcher en `src/services/api.ts`.
+- **Manejo de errores:** Manejador de error de query global + mensajes toast. Siempre extraer mensajes de error de API (nunca mostrar errores genéricos cuando la API retornó un mensaje específico).
+- **Reintentos:** Query default `retry: 3`, `staleTime: 5min`.
+- **Paginación:** Todos los endpoints de lista usan parámetros query `page` (1-based) + `page_size`.
+- **Tipado de respuestas:** Las respuestas de API no están tipadas en la spec OpenAPI (`{}` schema). Definir esquemas Zod basados en respuestas reales de API y validar en el límite.
+- **Errores de validación:** `422` retorna `{ detail: [{ loc, msg, type }] }` (estándar FastAPI).
+- **Mutaciones:** Actualizaciones optimistas + rollback en error cuando sea apropiado.
+- **Listas grandes:** Usar `useInfiniteQuery` de TanStack Query cuando sea necesario.
 
 ---
 
-## Checklist per endpoint
+## Sincronización con backend
 
-- [ ] Route + method Zod typed (request and response).
-- [ ] Mutations optimistic + rollback on error.
-- [ ] InfiniteQuery for large lists.
+- Actualizar este doc + esquemas Zod en `src/types/` cuando la API cambie.
+- Versión de API: `/v1/`, compatible hacia atrás.
+- Sin control de backend desde este proyecto.
+
+---
+
+## Checklist por endpoint
+
+- [ ] Ruta + método tipado con Zod (request y response).
+- [ ] Mutaciones optimistas + rollback en error.
+- [ ] InfiniteQuery para listas grandes.
 - [ ] Error boundaries + retry UX.
-- [ ] Loading / empty / error / success states handled.
+- [ ] Estados loading / empty / error / success manejados.
 
 ---
 
-## API domains overview
+## Descripción general de dominios de API
 
-| Domain | Endpoints | Description |
+| Dominio | Endpoints | Descripción |
 |---|---|---|
-| Auth | 5 | Magic link, password login, verify, set password, current user |
+| Auth | 5 | Magic link, login por contraseña, verify, set password, usuario actual |
 | API Keys | 3 | List, create, revoke |
-| Registration | 1 | Self-service company registration |
-| Companies | 5 | CRUD + status change |
-| Departments | 7 | CRUD + manager assignment |
+| Registration | 1 | Registro de empresa self-service |
+| Companies | 5 | CRUD + cambio de estado |
+| Departments | 7 | CRUD + asignación de manager |
 | Users | 11 | List, invite, import, quick-create, get, update, role, activate/deactivate, department |
 | Assets | 10 | CRUD, import, status, history, assign/unassign |
 | Requests | 13 | CRUD, status, priority, assign, approve/reject, comments, notes, events |
@@ -85,4 +85,4 @@
 
 **Total: ~170 endpoints**
 
-For the full endpoint catalog with request schemas, see `12-api-catalog.md`.
+Para el catálogo completo de endpoints con esquemas de request, ver `12-api-catalog.md`.

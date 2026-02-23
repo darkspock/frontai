@@ -1,39 +1,39 @@
-# Feature: [Feature name]
+# Feature: [Nombre del feature]
 
-## 1. Objective
-<!-- One sentence: what does this feature do and why. -->
-
-
-## 2. Target user
-<!-- Who uses this feature. Role, context, goal. -->
+## 1. Objetivo
+<!-- Una oracion: que hace este feature y por que. -->
 
 
-## 3. User journeys
-<!-- Step-by-step flows from the user's perspective. One flow per bullet list. -->
+## 2. Usuario objetivo
+<!-- Quien usa este feature. Rol, contexto, objetivo. -->
 
-**Main flow:**
+
+## 3. Journeys de usuario
+<!-- Flujos paso a paso desde la perspectiva del usuario. Un flujo por lista. -->
+
+**Flujo principal:**
 1.
 2.
 3.
 
-**Alternative flows:**
+**Flujos alternativos:**
 -
 
-**Error flows:**
+**Flujos de error:**
 -
 
-## 4. Screens and states
-<!-- List each screen involved. For each one, list its required states. -->
+## 4. Pantallas y estados
+<!-- Lista cada pantalla involucrada. Para cada una, listar sus estados requeridos. -->
 
-| Screen | States required |
-|--------|-----------------|
-|        | loading / empty / error / success |
+| Pantalla | Estados requeridos |
+|----------|-------------------|
+|          | loading / empty / error / success |
 
-## 5. API contracts
-<!-- For each endpoint used: method, path, request body, response structure, error codes. -->
+## 5. Contratos de API
+<!-- Para cada endpoint: metodo, path, body del request, estructura de respuesta, codigos de error. -->
 
-### [Endpoint name]
-- **Method + path:** `POST /api/v1/...`
+### [Nombre del endpoint]
+- **Metodo + path:** `POST /api/v1/...`
 - **Request:**
   ```json
   {}
@@ -42,46 +42,46 @@
   ```json
   {}
   ```
-- **Errors:** `400`, `401`, `422`, ...
+- **Errores:** `400`, `401`, `422`, ...
 
-## 6. Data types
-<!-- TypeScript types or interfaces for the data this feature works with. -->
+## 6. Tipos de datos
+<!-- Tipos o interfaces TypeScript para los datos con los que trabaja este feature. -->
 
 ```typescript
 
 ```
 
-## 7. Validation rules
-<!-- Form fields and business rules. Format: field — rule. -->
+## 7. Reglas de validacion
+<!-- Campos de formulario y reglas de negocio. Formato: campo — regla. -->
 
-- `field`: required, min length X, ...
+- `campo`: requerido, longitud minima X, ...
 
-## 8. Error cases
-<!-- What can go wrong and how the UI should handle each case. -->
+## 8. Casos de error
+<!-- Que puede salir mal y como debe manejar la UI cada caso. -->
 
-| Error | UI response |
-|-------|-------------|
-|       |             |
+| Error | Respuesta en UI |
+|-------|-----------------|
+|       |                 |
 
-## 9. Navigation and routing
-<!-- Routes involved, redirects, protected routes. -->
+## 9. Navegacion y rutas
+<!-- Rutas involucradas, redirecciones, rutas protegidas. -->
 
-- Route: `/...`
-- After success: redirect to `...`
-- Auth required: yes / no
+- Ruta: `/...`
+- Despues de exito: redirigir a `...`
+- Autenticacion requerida: si / no
 
-## 10. UI layout
-<!-- Text description of how each screen is organized. Describe layout structure, key components, columns, action placement. Reference patterns from ia_docs/frontend/08-layout-shell.md and ia_docs/frontend/09-state-patterns.md. -->
+## 10. Layout de UI
+<!-- Descripcion textual de como se organiza cada pantalla. Describir estructura del layout, componentes clave, columnas, ubicacion de acciones. Referenciar patrones de ia_docs/frontend/08-layout-shell.md y ia_docs/frontend/09-state-patterns.md. -->
 
-### [Screen name]
-- **Layout:** (e.g., page header + filter bar + data table)
-- **Key components:** (e.g., DataTable, Button, Dialog)
-- **Columns / fields:** (e.g., Name, Email, Role, Actions)
-- **Primary action:** (e.g., "Add user" button top-right)
-- **Secondary actions:** (e.g., edit/delete per row)
+### [Nombre de pantalla]
+- **Layout:** (ej. encabezado de pagina + barra de filtros + tabla de datos)
+- **Componentes clave:** (ej. DataTable, Button, Dialog)
+- **Columnas / campos:** (ej. Nombre, Email, Rol, Acciones)
+- **Accion primaria:** (ej. boton "Agregar usuario" arriba a la derecha)
+- **Acciones secundarias:** (ej. editar/eliminar por fila)
 
-## 11. Out of scope
-<!-- Explicitly list what this spec does NOT cover. -->
+## 11. Fuera de alcance
+<!-- Listar explicitamente lo que esta spec NO cubre. -->
 
 -
 

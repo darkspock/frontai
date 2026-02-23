@@ -1,14 +1,14 @@
-# UI state patterns
+# Patrones de estado de UI
 
-Every screen must handle 4 states: loading, empty, error, success. This doc defines how each state looks and behaves so implementations are consistent.
+Cada pantalla debe manejar 4 estados: loading, empty, error, success. Este documento define cómo se ve y se comporta cada estado para que las implementaciones sean consistentes.
 
 ---
 
-## Loading state
+## Estado de carga
 
-Used while data is being fetched. Never show a blank screen.
+Se usa mientras se están recuperando los datos. Nunca mostrar una pantalla en blanco.
 
-### Page-level loading
+### Carga a nivel de página
 
 ```tsx
 <div className="flex items-center justify-center min-h-[400px]">
@@ -19,7 +19,7 @@ Used while data is being fetched. Never show a blank screen.
 </div>
 ```
 
-### Inline loading (inside a card or section)
+### Carga inline (dentro de una tarjeta o sección)
 
 ```tsx
 <div className="flex items-center gap-2 p-4">
@@ -28,7 +28,7 @@ Used while data is being fetched. Never show a blank screen.
 </div>
 ```
 
-### Button loading
+### Carga de botón
 
 ```tsx
 <Button disabled>
@@ -37,20 +37,20 @@ Used while data is being fetched. Never show a blank screen.
 </Button>
 ```
 
-### Rules
+### Reglas
 
-- Spinner: `border-2 border-muted border-t-primary` with `animate-spin`. No third-party spinners.
-- Always include a text label next to the spinner (except inside buttons where space is limited).
-- Page-level loading: vertically centered with `min-h-[400px]`.
-- Skeleton loaders: optional for lists/tables when the shape of the content is known.
+- Spinner: `border-2 border-muted border-t-primary` con `animate-spin`. Sin spinners de terceros.
+- Siempre incluir una etiqueta de texto junto al spinner (excepto dentro de botones donde el espacio es limitado).
+- Carga a nivel de página: centrada verticalmente con `min-h-[400px]`.
+- Skeleton loaders: opcional para listas/tablas cuando se conoce la forma del contenido.
 
 ---
 
-## Empty state
+## Estado vacío
 
-Used when there is no data to show. Always provides a path forward.
+Se usa cuando no hay datos que mostrar. Siempre proporciona un camino a seguir.
 
-### Standard empty state
+### Estado vacío estándar
 
 ```tsx
 <div className="flex flex-col items-center justify-center min-h-[300px] text-center p-6">
@@ -68,21 +68,21 @@ Used when there is no data to show. Always provides a path forward.
 </div>
 ```
 
-### Rules
+### Reglas
 
-- Icon: Lucide icon inside a `rounded-full bg-muted p-4` circle.
-- Title: short, specific to the entity ("No users yet", not "No data").
-- Description: one sentence, explains what to do next.
-- CTA button: always present. Uses the same primary action as the page header.
-- Centered vertically with `min-h-[300px]`.
+- Icono: icono Lucide dentro de un círculo `rounded-full bg-muted p-4`.
+- Título: corto, específico a la entidad ("No users yet", no "No data").
+- Descripción: una oración, explica qué hacer a continuación.
+- Botón CTA: siempre presente. Usa la misma acción primaria que el encabezado de página.
+- Centrado verticalmente con `min-h-[300px]`.
 
 ---
 
-## Error state
+## Estado de error
 
-Used when an operation fails. Must always be actionable.
+Se usa cuando una operación falla. Debe ser siempre procesable.
 
-### Page-level error (API call failed, data could not load)
+### Error a nivel de página (llamada API falló, datos no se pudieron cargar)
 
 ```tsx
 <div className="flex flex-col items-center justify-center min-h-[400px] text-center p-6">
@@ -99,7 +99,7 @@ Used when an operation fails. Must always be actionable.
 </div>
 ```
 
-### Inline error (form submission, validation)
+### Error inline (envío de formulario, validación)
 
 ```tsx
 <div className="bg-destructive/15 text-destructive text-sm p-3 rounded-md">
@@ -107,7 +107,7 @@ Used when an operation fails. Must always be actionable.
 </div>
 ```
 
-### Field-level error
+### Error a nivel de campo
 
 ```tsx
 <div className="space-y-1">
@@ -117,7 +117,7 @@ Used when an operation fails. Must always be actionable.
 </div>
 ```
 
-### Toast error (background operation failed)
+### Error toast (operación en segundo plano falló)
 
 ```tsx
 toast({
@@ -127,21 +127,21 @@ toast({
 });
 ```
 
-### Rules
+### Reglas
 
-- Page-level: same layout as empty state but with `AlertTriangle` icon and destructive colors. Always include a "Try again" button.
-- Inline: `bg-destructive/15 text-destructive rounded-md p-3`. Placed above the form or section that failed.
-- Field-level: red border on input + error text below. Label also turns red.
-- Toast: for operations that happen in the background (auto-save, delete).
-- Always extract and show API error messages (never show generic "Something went wrong" when the API returned a specific message).
+- Nivel de página: mismo layout que estado vacío pero con icono `AlertTriangle` y colores destructivos. Siempre incluir un botón "Try again".
+- Inline: `bg-destructive/15 text-destructive rounded-md p-3`. Colocado encima del formulario o sección que falló.
+- Nivel de campo: borde rojo en input + texto de error debajo. La etiqueta también se vuelve roja.
+- Toast: para operaciones que ocurren en segundo plano (auto-guardado, eliminación).
+- Siempre extraer y mostrar mensajes de error de API (nunca mostrar "Something went wrong" genérico cuando la API devolvió un mensaje específico).
 
 ---
 
-## Success state
+## Estado de éxito
 
-Used to confirm a completed action. Transient — not a permanent screen.
+Se usa para confirmar una acción completada. Transitorio — no es una pantalla permanente.
 
-### Toast (default for most actions)
+### Toast (predeterminado para la mayoría de acciones)
 
 ```tsx
 toast({
@@ -150,7 +150,7 @@ toast({
 });
 ```
 
-### Inline success (after form submission, before redirect)
+### Éxito inline (después del envío de formulario, antes de redirigir)
 
 ```tsx
 <div className="bg-green-50 text-green-700 border border-green-200 text-sm p-3 rounded-md">
@@ -158,27 +158,27 @@ toast({
 </div>
 ```
 
-### Rules
+### Reglas
 
-- Default: use toast. It disappears automatically.
-- Inline success: only when the user stays on the same page after the action.
-- Never use a success page/screen for simple CRUD operations.
-- After create/edit: redirect to the list or detail view + toast.
-- After delete: return to the list + toast.
+- Por defecto: usar toast. Desaparece automáticamente.
+- Éxito inline: solo cuando el usuario se queda en la misma página después de la acción.
+- Nunca usar una página/pantalla de éxito para operaciones CRUD simples.
+- Después de crear/editar: redirigir a la vista de lista o detalle + toast.
+- Después de eliminar: volver a la lista + toast.
 
 ---
 
-## Decision table
+## Tabla de decisión
 
-| Scenario | State pattern |
+| Escenario | Patrón de estado |
 |---|---|
-| Page loading data from API | Page-level loading |
-| Section loading inside a page | Inline loading |
-| Button performing an action | Button loading |
-| No data exists yet | Empty state with CTA |
-| API call failed on page load | Page-level error with retry |
-| Form submission failed | Inline error above form |
-| Field validation failed | Field-level error |
-| Background operation failed | Toast error |
-| CRUD action succeeded | Toast success + redirect |
-| Save without navigation | Inline success |
+| Página cargando datos de API | Carga a nivel de página |
+| Sección cargando dentro de una página | Carga inline |
+| Botón realizando una acción | Carga de botón |
+| No existen datos aún | Estado vacío con CTA |
+| Llamada API falló en carga de página | Error a nivel de página con reintentar |
+| Envío de formulario falló | Error inline encima del formulario |
+| Validación de campo falló | Error a nivel de campo |
+| Operación en segundo plano falló | Error toast |
+| Acción CRUD exitosa | Toast de éxito + redirigir |
+| Guardar sin navegación | Éxito inline |

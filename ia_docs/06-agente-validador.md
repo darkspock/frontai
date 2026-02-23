@@ -1,98 +1,98 @@
-# Validation Agent — Feature Specification
+# Agente validador — Especificacion de feature
 
-## Purpose
+## Proposito
 
-This agent validates that a feature specification in `working/[feature]/spec.md` is complete and unambiguous before implementation begins.
+Este agente valida que una especificacion de feature en `working/[feature]/spec.md` este completa y sin ambiguedades antes de comenzar la implementacion.
 
-It checks each required section one by one. If a section is missing or incomplete, it asks the user for the missing information — one question at a time — before moving to the next.
-
----
-
-## When to run
-
-Run this agent after creating or updating a spec in `working/[feature]/spec.md` and before starting any implementation.
+Revisa cada seccion requerida una por una. Si una seccion falta o esta incompleta, le pregunta al usuario la informacion faltante — una pregunta a la vez — antes de pasar a la siguiente.
 
 ---
 
-## Agent prompt
+## Cuando ejecutarlo
 
-Use this prompt with Claude Code, pointing it at the feature spec to validate:
+Ejecutar este agente despues de crear o actualizar una spec en `working/[feature]/spec.md` y antes de iniciar cualquier implementacion.
+
+---
+
+## Prompt del agente
+
+Usar este prompt con Claude Code, apuntando a la spec del feature a validar:
 
 ```
-You are a requirements validation agent for a frontend project.
+Eres un agente de validacion de requisitos para un proyecto frontend.
 
-Your task: read the feature specification at `working/[feature]/spec.md` and verify that it is complete and unambiguous.
+Tu tarea: leer la especificacion del feature en `working/[feature]/spec.md` y verificar que este completa y sin ambiguedades.
 
-Validation checklist — in this exact order:
+Checklist de validacion — en este orden exacto:
 
-1. OBJECTIVE — Is there a clear, single-sentence objective? Does it explain what the feature does and why?
-2. TARGET USER — Is the user role, context, and goal described?
-3. USER JOURNEYS — Is there at least one main flow with numbered steps? Are error flows covered?
-4. SCREENS AND STATES — Is each screen listed? Does each screen have all required states (loading, empty, error, success)?
-5. API CONTRACTS — For each endpoint: is the method + path defined? Is the request body specified? Is the response structure specified? Are error codes listed?
-6. DATA TYPES — Are TypeScript types or interfaces defined for the main data structures?
-7. VALIDATION RULES — Are form fields listed with their validation rules?
-8. ERROR CASES — Is there a table of error cases and their UI responses?
-9. NAVIGATION AND ROUTING — Are the routes defined? Are post-action redirects specified? Is auth requirement stated?
-10. UI LAYOUT — Is there a text description of how each screen is organized? Are key components, columns/fields, and action placement described?
-11. OUT OF SCOPE — Is there at least one explicit out-of-scope item?
+1. OBJETIVO — ¿Hay un objetivo claro en una sola oracion? ¿Explica que hace el feature y por que?
+2. USUARIO OBJETIVO — ¿Se describe el rol del usuario, contexto y objetivo?
+3. JOURNEYS DE USUARIO — ¿Hay al menos un flujo principal con pasos numerados? ¿Se cubren flujos de error?
+4. PANTALLAS Y ESTADOS — ¿Se lista cada pantalla? ¿Cada pantalla tiene los 4 estados requeridos (loading, empty, error, success)?
+5. CONTRATOS DE API — Para cada endpoint: ¿esta definido metodo + path? ¿Se especifica el body del request? ¿Se especifica la estructura de respuesta? ¿Se listan codigos de error?
+6. TIPOS DE DATOS — ¿Se definen tipos o interfaces TypeScript para las estructuras de datos principales?
+7. REGLAS DE VALIDACION — ¿Se listan los campos del formulario con sus reglas de validacion?
+8. CASOS DE ERROR — ¿Hay una tabla de casos de error y sus respuestas en UI?
+9. NAVEGACION Y RUTAS — ¿Se definen las rutas? ¿Se especifican redirecciones post-accion? ¿Se indica requisito de autenticacion?
+10. LAYOUT DE UI — ¿Hay una descripcion textual de como se organiza cada pantalla? ¿Se describen componentes clave, columnas/campos y ubicacion de acciones?
+11. FUERA DE ALCANCE — ¿Hay al menos un item explicito fuera de alcance?
 
-Process:
+Proceso:
 
-- Read the spec file first.
-- Go through the checklist in order.
-- For each item that is missing or incomplete, stop and ask the user ONE question to fill in that specific gap.
-- Wait for the answer, update the spec file with the provided information, then move to the next item.
-- Do not ask multiple questions at once.
-- Do not assume or invent information — only use what the user provides.
-- Once all 11 items pass:
-  1. Output: "Specification complete. Ready for implementation."
-  2. Provide a one-paragraph summary of the feature for confirmation.
-  3. Generate the task list file at `working/[feature]/tasks.md` following the format in `working/_template/tasks.md`.
-     - Tasks must be ordered by dependency (types → services → hooks → components → page → route → states → validation → lint/build → smoke test).
-     - Each task must be atomic and have a clear acceptance criterion.
-     - Use `- [ ]` checkboxes for all tasks.
+- Leer el archivo de spec primero.
+- Recorrer el checklist en orden.
+- Para cada item faltante o incompleto, detenerse y hacerle al usuario UNA pregunta para completar ese vacio especifico.
+- Esperar la respuesta, actualizar el archivo de spec con la informacion proporcionada, luego pasar al siguiente item.
+- No hacer multiples preguntas a la vez.
+- No asumir ni inventar informacion — usar solo lo que el usuario proporcione.
+- Una vez que los 11 items pasen:
+  1. Mensaje: "Especificacion completa. Lista para implementacion."
+  2. Proporcionar un resumen de un parrafo del feature para confirmacion.
+  3. Generar el archivo de lista de tareas en `working/[feature]/tasks.md` siguiendo el formato de `working/_template/tasks.md`.
+     - Las tareas deben estar ordenadas por dependencia (tipos → servicios → hooks → componentes → pagina → ruta → estados → validacion → lint/build → smoke test).
+     - Cada tarea debe ser atomica y tener un criterio de aceptacion claro.
+     - Usar checkboxes `- [ ]` para todas las tareas.
 ```
 
 ---
 
-## Validation criteria per section
+## Criterios de validacion por seccion
 
-| Section | Minimum acceptable |
+| Seccion | Minimo aceptable |
 |---|---|
-| Objective | Single sentence, states what + why |
-| Target user | At least one role with context |
-| User journeys | Main flow with ≥3 steps; at least one error flow |
-| Screens and states | Every screen with all 4 states (loading/empty/error/success) |
-| API contracts | Method + path + request + response + error codes for each endpoint |
-| Data types | At least one TypeScript type/interface for the main entity |
-| Validation rules | Rule per form field; empty if feature has no form (must be explicit) |
-| Error cases | At least the main API error and a network error covered |
-| Navigation | Route path + post-success redirect + auth requirement |
-| UI layout | Text description per screen: layout structure, key components, columns/fields, primary and secondary actions |
-| Out of scope | At least one explicit item |
+| Objetivo | Una oracion, indica que + por que |
+| Usuario objetivo | Al menos un rol con contexto |
+| Journeys de usuario | Flujo principal con ≥3 pasos; al menos un flujo de error |
+| Pantallas y estados | Cada pantalla con los 4 estados (loading/empty/error/success) |
+| Contratos de API | Metodo + path + request + response + codigos de error por endpoint |
+| Tipos de datos | Al menos un tipo/interfaz TypeScript para la entidad principal |
+| Reglas de validacion | Regla por campo de formulario; vacio si el feature no tiene formulario (debe ser explicito) |
+| Casos de error | Al menos el error principal de API y un error de red cubiertos |
+| Navegacion | Ruta + redireccion post-exito + requisito de autenticacion |
+| Layout de UI | Descripcion textual por pantalla: estructura del layout, componentes clave, columnas/campos, acciones primarias y secundarias |
+| Fuera de alcance | Al menos un item explicito |
 
 ---
 
-## Output after validation
+## Resultado tras la validacion
 
-Once complete, the agent must:
+Una vez completo, el agente debe:
 
-1. Confirm: `"Specification complete. Ready for implementation."`
-2. Update the `Status` line at the bottom of `spec.md` from `draft` to `validated`.
-3. Provide a short summary of the feature (1 paragraph) for the developer to confirm alignment.
-4. Create `working/[feature]/tasks.md` with the ordered, checkbox task list derived from the validated spec.
+1. Confirmar: `"Especificacion completa. Lista para implementacion."`
+2. Actualizar la linea `Status` al final de `spec.md` de `draft` a `validated`.
+3. Proporcionar un resumen corto del feature (1 parrafo) para que el desarrollador confirme alineacion.
+4. Crear `working/[feature]/tasks.md` con la lista de tareas ordenada y con checkboxes derivada de la spec validada.
 
-The task list must follow this order:
-1. TypeScript types for the feature data
-2. API service function(s)
-3. Custom hook(s) with TanStack Query
-4. UI components (smallest to largest)
-5. Page/screen assembly
-6. Route and navigation
-7. All UI states (loading / empty / error / success)
-8. Form validation and error messages
+La lista de tareas debe seguir este orden:
+1. Tipos TypeScript para los datos del feature
+2. Funcion(es) de servicio de API
+3. Hook(s) custom con TanStack Query
+4. Componentes UI (del mas pequeno al mas grande)
+5. Ensamblaje de pagina/pantalla
+6. Ruta y navegacion
+7. Todos los estados de UI (loading / empty / error / success)
+8. Validacion de formulario y mensajes de error
 9. lint + typecheck + build
-10. Manual smoke test of the full user journey
+10. Smoke test manual del journey completo del usuario
 
-Adjust, add, or remove steps based on what the spec actually requires.
+Ajustar, agregar o quitar pasos segun lo que la spec realmente requiera.

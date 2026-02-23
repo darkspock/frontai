@@ -1,6 +1,6 @@
-# Execution flow
+# Flujo de ejecución
 
-## Overview
+## Descripción general
 
 ```
 spec.md  →  validate  →  tasks.md  →  execute (one by one)  →  accept  →  close
@@ -8,88 +8,88 @@ spec.md  →  validate  →  tasks.md  →  execute (one by one)  →  accept  �
 
 ---
 
-## Optional — Business alignment
+## Opcional — Alineación de negocio
 
-These steps are only needed for major features that require product alignment or when starting a new domain. For features where the context is already clear, skip directly to Step 1.
+Estos pasos solo son necesarios para features mayores que requieren alineación de producto o cuando se inicia un nuevo dominio. Para features donde el contexto ya es claro, saltar directamente al Paso 1.
 
-- Define functional scope and main user journeys in `docs/`.
-- Document product and UX decisions in `docs/`.
-- Translate technical conventions to `ia_docs/`.
-
----
-
-## Step 1 — Create specification
-
-- Copy `working/_template/spec.md` to `working/[feature]/spec.md`.
-- Fill in everything that is already known.
-- Leave blanks for what needs to be discussed.
+- Definir el alcance funcional y los flujos principales de usuario en `docs/`.
+- Documentar decisiones de producto y UX en `docs/`.
+- Traducir convenciones técnicas a `ia_docs/`.
 
 ---
 
-## Step 2 — Validate specification
+## Paso 1 — Crear especificación
 
-- Run the validator agent: `ia_docs/06-agente-validador.md`.
-- Answer each question one at a time until the agent confirms the spec is complete.
-- Do not start implementing before the agent outputs: `"Specification complete. Ready for implementation."`
-- The agent sets `Status: validated` in `spec.md` automatically.
-
----
-
-## Step 3 — Generate task list
-
-- After validation, the agent creates `working/[feature]/tasks.md` with an ordered, checkbox task list.
-- Each task is atomic: one clear action, one acceptance criterion.
-- Do not modify the task list unless the spec changes.
+- Copiar `working/_template/spec.md` a `working/[feature]/spec.md`.
+- Completar todo lo que ya se conoce.
+- Dejar espacios en blanco para lo que necesita ser discutido.
 
 ---
 
-## Step 4 — Execute tasks one by one
+## Paso 2 — Validar especificación
 
-- Read `tasks.md` and start with the first unchecked task.
-- Before starting a task: read the spec and relevant `ia_docs/` files.
-- Implement only what that task requires. Do not skip ahead.
-- After completing a task: mark it as done in `tasks.md` with `[x]`.
-- Then move to the next task.
-
-Rules:
-- Never start a new task without marking the previous one as done.
-- If a task is blocked, add a `⚠ blocked: [reason]` note and stop — do not skip it silently.
-- If a task reveals missing information in the spec, stop, update the spec, re-run the validator, then continue.
+- Ejecutar el agente validador: `ia_docs/06-agente-validador.md`.
+- Responder cada pregunta una por una hasta que el agente confirme que la spec está completa.
+- No empezar a implementar antes de que el agente muestre: `"Especificación completa. Lista para implementación."`
+- El agente establece automáticamente `Status: validated` en `spec.md`.
 
 ---
 
-## Step 5 — Acceptance
+## Paso 3 — Generar lista de tareas
 
-Compare the implemented result against the spec, section by section:
-
-- [ ] Objective: does the feature fulfill its stated purpose?
-- [ ] User journeys: walk through main flow and error flows — do they work as specified?
-- [ ] Screens and states: verify each screen handles loading, empty, error, and success.
-- [ ] UI layout: does the layout match the description in the spec?
-- [ ] API integration: are all endpoints consumed correctly?
-- [ ] Validation rules: test each form field against the rules in the spec.
-- [ ] Error cases: trigger each error case from the spec and verify the UI response.
-- [ ] Navigation: verify routes, redirects, and auth guards.
-
-If any check fails, create a follow-up task or re-open the relevant task in `tasks.md`.
+- Después de la validación, el agente crea `working/[feature]/tasks.md` con una lista de tareas ordenada con checkboxes.
+- Cada tarea es atómica: una acción clara, un criterio de aceptación.
+- No modificar la lista de tareas a menos que la spec cambie.
 
 ---
 
-## Step 6 — Technical validation
+## Paso 4 — Ejecutar tareas una por una
 
-- `npm run lint` — fix all errors.
-- `npm run typecheck` — no TypeScript errors.
-- `npm run build` — clean build.
-- Verify UI states for the implemented screen: loading / empty / error / success.
-- No regressions in existing navigation or flows.
+- Leer `tasks.md` y comenzar con la primera tarea sin marcar.
+- Antes de empezar una tarea: leer la spec y los archivos relevantes en `ia_docs/`.
+- Implementar solo lo que esa tarea requiere. No saltar adelante.
+- Después de completar una tarea: marcarla como hecha en `tasks.md` con `[x]`.
+- Luego pasar a la siguiente tarea.
+
+Reglas:
+- Nunca empezar una tarea nueva sin marcar la anterior como completada.
+- Si una tarea está bloqueada, añadir una nota `⚠ blocked: [reason]` y detener — no saltarla silenciosamente.
+- Si una tarea revela información faltante en la spec, detener, actualizar la spec, re-ejecutar el validador, luego continuar.
 
 ---
 
-## Step 7 — Close
+## Paso 5 — Aceptación
 
-- All tasks marked `[x]` in `tasks.md`.
-- Acceptance checklist passed (Step 5).
-- Set `Status: implemented` in `spec.md`.
-- `git status` — review changes, do not auto-commit.
-- If architectural decisions were made: register in `ia_docs/frontend/03-adr.md`.
-- If pending work remains: add to `ia_docs/frontend/05-operacion-y-gobernanza.md`.
+Comparar el resultado implementado contra la spec, sección por sección:
+
+- [ ] Objetivo: ¿El feature cumple su propósito establecido?
+- [ ] Flujos de usuario: recorrer flujo principal y flujos de error — ¿funcionan como se especifica?
+- [ ] Pantallas y estados: verificar que cada pantalla maneja loading, empty, error, y success.
+- [ ] Diseño de UI: ¿El diseño coincide con la descripción en la spec?
+- [ ] Integración de API: ¿Se consumen correctamente todos los endpoints?
+- [ ] Reglas de validación: probar cada campo de formulario contra las reglas en la spec.
+- [ ] Casos de error: disparar cada caso de error desde la spec y verificar la respuesta de UI.
+- [ ] Navegación: verificar rutas, redirecciones y guards de autenticación.
+
+Si alguna verificación falla, crear una tarea de seguimiento o re-abrir la tarea relevante en `tasks.md`.
+
+---
+
+## Paso 6 — Validación técnica
+
+- `npm run lint` — corregir todos los errores.
+- `npm run typecheck` — sin errores de TypeScript.
+- `npm run build` — compilación limpia.
+- Verificar estados de UI para la pantalla implementada: loading / empty / error / success.
+- Sin regresiones en navegación o flujos existentes.
+
+---
+
+## Paso 7 — Cerrar
+
+- Todas las tareas marcadas `[x]` en `tasks.md`.
+- Lista de verificación de aceptación pasada (Paso 5).
+- Establecer `Status: implemented` en `spec.md`.
+- `git status` — revisar cambios, no hacer auto-commit.
+- Si se tomaron decisiones arquitectónicas: registrar en `ia_docs/frontend/03-adr.md`.
+- Si hay trabajo pendiente: añadir a `ia_docs/frontend/05-operacion-y-gobernanza.md`.

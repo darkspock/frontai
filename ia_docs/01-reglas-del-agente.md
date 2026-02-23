@@ -1,39 +1,39 @@
-# Agent rules
+# Reglas del agente
 
-## Principles
+## Principios
 
-- Do things right. Quality over speed.
-- If a task requires a large change to be done correctly, make the large change. Do not apply a hack or shortcut to finish faster.
-- If you encounter a serious issue during implementation (broken architecture, wrong patterns, missing foundations), stop and ask before proceeding. Do not patch around it.
-- Maintain consistency with the defined frontend stack and patterns.
-- Do not introduce backend changes from this project.
+- Hacer las cosas bien. Calidad sobre velocidad.
+- Si una tarea requiere un cambio grande para hacerse correctamente, hacer el cambio grande. No aplicar hacks ni atajos para terminar mas rapido.
+- Si se encuentra un problema serio durante la implementacion (arquitectura rota, patrones incorrectos, fundamentos faltantes), detenerse y preguntar antes de continuar. No parchear alrededor del problema.
+- Mantener consistencia con el stack y patrones frontend definidos.
+- No introducir cambios de backend desde este proyecto.
 
-## Before coding
+## Antes de codificar
 
-- Read `CLAUDE.md` for project conventions and precedence rules.
-- Read the feature spec at `working/[feature]/spec.md` — it must have `Status: validated`.
-- Read the task list at `working/[feature]/tasks.md` — find the next unchecked task.
-- Read relevant `ia_docs/` files for context (stack, standards, checklists).
-- Validate impact on routes, state, and UX flow before making changes.
+- Leer `CLAUDE.md` para convenciones del proyecto y reglas de precedencia.
+- Leer la spec del feature en `working/[feature]/spec.md` — debe tener `Status: validated`.
+- Leer la lista de tareas en `working/[feature]/tasks.md` — encontrar la siguiente tarea sin marcar.
+- Leer los archivos relevantes de `ia_docs/` para contexto (stack, estandares, checklists).
+- Validar impacto en rutas, estado y flujo UX antes de hacer cambios.
 
-## During execution
+## Durante la ejecucion
 
-- Work on one task at a time from `tasks.md`.
-- Mark each task `[x]` when done before starting the next.
-- If blocked, add `blocked: [reason]` and stop — do not skip.
-- If the spec is missing information, stop, update the spec, re-run the validator, then continue.
-- Report the plan and steps executed.
+- Trabajar en una tarea a la vez desde `tasks.md`.
+- Marcar cada tarea `[x]` al completarla antes de iniciar la siguiente.
+- Si hay bloqueo, agregar `blocked: [motivo]` y detenerse — no saltar.
+- Si la spec tiene informacion faltante, detenerse, actualizar la spec, re-ejecutar el validador, luego continuar.
+- Reportar el plan y los pasos ejecutados.
 
-## After execution
+## Despues de la ejecucion
 
-- Run `npm run lint`, `npm run typecheck`, `npm run build`.
-- Verify UI states: loading, empty, error, success.
-- Update documentation if decisions were made.
-- `git status` — do not auto-commit.
+- Ejecutar `npm run lint`, `npm run typecheck`, `npm run build`.
+- Verificar estados de UI: loading, empty, error, success.
+- Actualizar documentacion si se tomaron decisiones.
+- `git status` — no hacer auto-commit.
 
-## Limits
+## Limites
 
-- Do not introduce new technology without a registered ADR (`ia_docs/frontend/03-adr.md`).
-- Do not make destructive changes without explicit approval.
-- Do not assume backend contract changes without documented evidence.
-- Do not start implementing without a validated spec and a generated task list.
+- No introducir tecnologia nueva sin registrar un ADR (`ia_docs/frontend/03-adr.md`).
+- No hacer cambios destructivos sin aprobacion explicita.
+- No asumir cambios en contratos del backend sin evidencia documentada.
+- No empezar a implementar sin una spec validada y una lista de tareas generada.

@@ -1,10 +1,10 @@
-# Layout shell and responsive breakpoints
+# Shell de diseño y puntos de ruptura responsivos
 
-Defines the app shell (sidebar + header + content area) and responsive behavior at each breakpoint.
+Define el shell de la app (sidebar + header + área de contenido) y comportamiento responsivo en cada punto de ruptura.
 
 ---
 
-## App shell structure
+## Estructura del shell de la app
 
 ```
 ┌──────────────────────────────────────────────┐
@@ -21,34 +21,34 @@ Defines the app shell (sidebar + header + content area) and responsive behavior 
 
 ### Header
 
-- Height: `h-16` (64px).
-- Fixed at top: `sticky top-0 z-50`.
-- Contents: breadcrumb (left), user menu (right).
-- Background: `bg-background border-b`.
+- Altura: `h-16` (64px).
+- Fijo en la parte superior: `sticky top-0 z-50`.
+- Contenidos: breadcrumb (izquierda), menú de usuario (derecha).
+- Fondo: `bg-background border-b`.
 
 ### Sidebar
 
-- Expanded width: `w-64` (256px).
-- Collapsed width: `w-16` (64px).
-- Fixed at left: `fixed left-0 top-16 bottom-0`.
-- Background: `bg-muted/40 border-r`.
-- Contents: navigation links with Lucide icons.
-- Collapse trigger: toggle button at the bottom of the sidebar.
-- Collapsed state: icons only, tooltip on hover for each item.
+- Ancho expandido: `w-64` (256px).
+- Ancho colapsado: `w-16` (64px).
+- Fijo a la izquierda: `fixed left-0 top-16 bottom-0`.
+- Fondo: `bg-muted/40 border-r`.
+- Contenidos: enlaces de navegación con iconos Lucide.
+- Disparador de colapso: botón de alternancia en la parte inferior de la sidebar.
+- Estado colapsado: solo iconos, tooltip en hover para cada elemento.
 
-### Content area
+### Área de contenido
 
-- Offset: `ml-64` (or `ml-16` when sidebar collapsed).
-- Offset top: `mt-16` for fixed header.
-- Max width: `max-w-7xl mx-auto`.
+- Offset: `ml-64` (o `ml-16` cuando sidebar está colapsada).
+- Offset superior: `mt-16` para header fijo.
+- Ancho máximo: `max-w-7xl mx-auto`.
 - Padding: `p-6`.
-- Background: `bg-background`.
+- Fondo: `bg-background`.
 
 ---
 
-## Page layout inside content area
+## Layout de página dentro del área de contenido
 
-Every page follows this structure:
+Cada página sigue esta estructura:
 
 ```
 ┌─────────────────────────────────────┐
@@ -65,67 +65,67 @@ Every page follows this structure:
 └─────────────────────────────────────┘
 ```
 
-- Page header: `mb-6`.
+- Encabezado de página: `mb-6`.
 - Breadcrumb: `text-sm text-muted-foreground mb-2`.
-- Title: `text-3xl font-bold`.
-- Primary CTA: aligned right on the same row as title.
-- Sections: separated by `space-y-6`.
+- Título: `text-3xl font-bold`.
+- CTA primaria: alineado a la derecha en la misma fila que el título.
+- Secciones: separadas por `space-y-6`.
 
 ---
 
-## Responsive breakpoints
+## Puntos de ruptura responsivos
 
-Using Tailwind's default breakpoints:
+Usando los puntos de ruptura por defecto de Tailwind:
 
-| Breakpoint | Min width | Name | Layout changes |
+| Punto de ruptura | Ancho mín | Nombre | Cambios de layout |
 |---|---|---|---|
-| Default | 0px | Mobile | Sidebar hidden. Hamburger menu in header. Content full width. |
-| `sm` | 640px | Mobile landscape | Same as mobile. Minor text adjustments. |
-| `md` | 768px | Tablet | Sidebar collapsed (64px, icons only). Content adjusts. |
-| `lg` | 1024px | Desktop | Sidebar expanded (256px). Full layout. |
-| `xl` | 1280px | Wide desktop | Same as desktop. Content max-width applies. |
+| Default | 0px | Móvil | Sidebar oculta. Menú hamburguesa en header. Contenido ancho completo. |
+| `sm` | 640px | Móvil horizontal | Mismo que móvil. Ajustes de texto menores. |
+| `md` | 768px | Tablet | Sidebar colapsada (64px, solo iconos). Contenido se ajusta. |
+| `lg` | 1024px | Escritorio | Sidebar expandida (256px). Layout completo. |
+| `xl` | 1280px | Escritorio ancho | Mismo que escritorio. Ancho máximo de contenido se aplica. |
 
-### Mobile (< 768px)
+### Móvil (< 768px)
 
-- Sidebar: hidden by default. Opened as a `Sheet` (slide-in panel) from hamburger.
-- Header: hamburger button (left), logo (center), user avatar (right).
-- Content: `p-4` instead of `p-6`.
-- Tables: switch to stacked card-like rows (each row becomes a compact block).
-- Dialogs: full-screen (`DialogContent` with `max-w-full`).
+- Sidebar: oculta por defecto. Abierta como un `Sheet` (panel deslizable) desde hamburguesa.
+- Header: botón hamburguesa (izquierda), logo (centro), avatar de usuario (derecha).
+- Contenido: `p-4` en lugar de `p-6`.
+- Tablas: cambiar a filas tipo tarjeta apiladas (cada fila se convierte en bloque compacto).
+- Diálogos: pantalla completa (`DialogContent` con `max-w-full`).
 
 ### Tablet (768px – 1023px)
 
-- Sidebar: collapsed (64px), icons only, tooltip on hover.
-- Header: same as desktop but without breadcrumb text (icon only).
-- Content: `ml-16 p-6`.
-- Tables: horizontal scroll if needed, no layout change.
+- Sidebar: colapsada (64px), solo iconos, tooltip en hover.
+- Header: mismo que escritorio pero sin texto de breadcrumb (solo icono).
+- Contenido: `ml-16 p-6`.
+- Tablas: desplazamiento horizontal si es necesario, sin cambio de layout.
 
-### Desktop (>= 1024px)
+### Escritorio (>= 1024px)
 
-- Full layout as defined in shell structure above.
-- Sidebar: expanded (256px) with text labels.
-- Content: `ml-64 p-6 max-w-7xl`.
+- Layout completo como se define en la estructura del shell anterior.
+- Sidebar: expandida (256px) con etiquetas de texto.
+- Contenido: `ml-64 p-6 max-w-7xl`.
 
 ---
 
-## Sidebar navigation items
+## Elementos de navegación de la sidebar
 
-Standard navigation structure:
+Estructura de navegación estándar:
 
-| Label | Icon | Route |
+| Etiqueta | Icono | Ruta |
 |---|---|---|
 | Dashboard | `LayoutDashboard` | `/` |
 | Users | `Users` | `/users` |
 | Settings | `Settings` | `/settings` |
 
-Add items as features are implemented. Keep the list short (max 8 top-level items).
+Agregar elementos conforme se implementan las features. Mantener la lista corta (máximo 8 elementos de nivel superior).
 
 ---
 
-## Rules
+## Reglas
 
-- Never hide the primary CTA on any breakpoint.
-- Sidebar state (collapsed/expanded) persists in localStorage.
-- Mobile sidebar closes automatically after navigation.
-- Content area always has consistent padding — never zero.
-- Header is always visible — never scrolls away.
+- Nunca ocultar la CTA primaria en ningún punto de ruptura.
+- El estado de sidebar (colapsado/expandido) persiste en localStorage.
+- La sidebar móvil se cierra automáticamente después de la navegación.
+- El área de contenido siempre tiene padding consistente — nunca cero.
+- El header siempre es visible — nunca se desplaza hacia arriba.

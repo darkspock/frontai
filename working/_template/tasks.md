@@ -1,34 +1,34 @@
-# Tasks: [Feature name]
+# Tareas: [Nombre del feature]
 
-> Generated from `spec.md` after validation. Execute in order, one task at a time.
+> Generado desde `spec.md` despues de la validacion. Ejecutar en orden, una tarea a la vez.
 
 **Status:** in-progress / completed
 
 ---
 
-## Tasks
+## Tareas
 
-- [ ] 1. [Task description — what to do and where]
-- [ ] 2. [Task description]
-- [ ] 3. [Task description]
+- [ ] 1. [Descripcion de la tarea — que hacer y donde]
+- [ ] 2. [Descripcion de la tarea]
+- [ ] 3. [Descripcion de la tarea]
 
 ---
 
-## Task format reference
+## Referencia de formato de tarea
 
-Each task should be:
-- **Atomic** — one clear action (create a component, add a route, call an endpoint, etc.)
-- **Ordered** — dependencies respected (types before hooks, hooks before components, components before pages)
-- **Verifiable** — it is obvious when it is done
+Cada tarea debe ser:
+- **Atomica** — una accion clara (crear un componente, agregar una ruta, llamar un endpoint, etc.)
+- **Ordenada** — dependencias respetadas (tipos antes que hooks, hooks antes que componentes, componentes antes que paginas)
+- **Verificable** — es obvio cuando esta completada
 
-Suggested order for a typical feature:
-1. Define TypeScript types for the feature data
-2. Create the API service function(s)
-3. Create the custom hook(s) with TanStack Query
-4. Build the UI components (from smallest to largest)
-5. Assemble the page/screen
-6. Add the route and navigation
-7. Handle all UI states (loading / empty / error / success)
-8. Validate forms and error messages
-9. Run lint + typecheck + build
-10. Manual smoke test of the full user journey
+Orden sugerido para un feature tipico:
+1. Definir tipos TypeScript para los datos del feature
+2. Crear la(s) funcion(es) de servicio de API
+3. Crear el/los hook(s) custom con TanStack Query
+4. Construir los componentes UI (del mas pequeno al mas grande)
+5. Ensamblar la pagina/pantalla
+6. Agregar la ruta y navegacion
+7. Manejar todos los estados de UI (loading / empty / error / success)
+8. Validar formularios y mensajes de error
+9. Ejecutar lint + typecheck + build
+10. Smoke test manual del journey completo del usuario
