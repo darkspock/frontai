@@ -11,10 +11,8 @@ Documentacion operativa para asistentes de IA.
 - `05-prompts-base.md`: prompts reutilizables.
 - `06-agente-validador.md`: agente que valida especificaciones en `working/` antes de implementar.
 - `frontend/`: documentacion tecnica fuerte del frontend (arquitectura, ADR, gobernanza e integracion API).
-- `references/frontend/`: referencias importadas de otro proyecto.
 
 ## Regla de uso
 - Este espacio se escribe para IA.
 - Todo requisito tecnico operativo debe existir aqui antes de pedir implementacion.
 - Esta carpeta es la fuente principal de documentacion tecnica del proyecto.
-- El contenido en `references/` sirve como apoyo y no reemplaza reglas del proyecto.

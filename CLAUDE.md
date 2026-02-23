@@ -30,8 +30,6 @@ Before implementing any feature, follow the execution flow in `ia_docs/02-flujo-
 - `ia_docs/01-reglas-del-agente.md` — agent rules and limits
 - `ia_docs/03-estandares-de-codigo.md` — code quality standards
 - `ia_docs/04-checklists.md` — checklists by change type
-- `ia_docs/references/frontend/` — reference material (see precedence rule below)
-
 ## Documentation hierarchy
 
 When docs conflict, this is the precedence order (highest wins):
@@ -39,8 +37,7 @@ When docs conflict, this is the precedence order (highest wins):
 1. This file (`CLAUDE.md`)
 2. `ia_docs/` root files (00 through 06)
 3. `ia_docs/frontend/` files
-4. `ia_docs/references/frontend/` (imported, advisory only)
-5. `docs/` (business context, not technical specs)
+4. `docs/` (business context, not technical specs)
 
 ## Quality principles
 
